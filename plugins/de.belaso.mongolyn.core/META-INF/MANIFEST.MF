@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mongolyn Core
+Bundle-SymbolicName: de.belaso.mongolyn.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Christian Trutz
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: .,
+ lib/mongo-2.7.3.jar
+Export-Package: com.mongodb,
+ com.mongodb.gridfs,
+ com.mongodb.io,
+ com.mongodb.util,
+ org.bson,
+ org.bson.io,
+ org.bson.types,
+ org.bson.util

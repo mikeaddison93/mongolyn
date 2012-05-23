@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.mylyn.tasks.ui.repositories">
+      <connectorCore
+            class="de.belaso.mongolyn.ui.RepositoryConnector"
+            id="de.belaso.mongolyn.ui.RepositoryConnector"
+            name="%de.belaso.mongolyn.ui.RepositoryConnector">
+      </connectorCore>
+      <connectorUi
+            class="de.belaso.mongolyn.ui.RepositoryConnectorUi"
+            id="de.belaso.mongolyn.ui.RepositoryConnectorUi"
+            name="%de.belaso.mongolyn.ui.RepositoryConnectorUi">
+      </connectorUi>
+   </extension>
+   <extension
+         point="org.eclipse.mylyn.tasks.ui.editors">
+      <pageFactory
+            class="de.belaso.mongolyn.ui.TaskEditorPageFactory"
+            id="de.belaso.mongolyn.ui.TaskEditorPageFactory">
+      </pageFactory>
+   </extension>
+
+</plugin>
