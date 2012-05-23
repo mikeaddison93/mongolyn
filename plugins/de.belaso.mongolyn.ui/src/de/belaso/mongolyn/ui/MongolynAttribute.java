@@ -17,9 +17,6 @@ import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
  */
 public enum MongolynAttribute {
 
-	TASK_KEY(TaskAttribute.TASK_KEY, "Key:", TaskAttribute.TYPE_SHORT_TEXT,
-			true),
-
 	SUMMARY(TaskAttribute.SUMMARY, "Summary:",
 			TaskAttribute.TYPE_SHORT_RICH_TEXT),
 

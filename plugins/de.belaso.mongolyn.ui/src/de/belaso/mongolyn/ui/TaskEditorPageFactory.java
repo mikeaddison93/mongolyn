@@ -9,7 +9,6 @@
 package de.belaso.mongolyn.ui;
 
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.ui.ITasksUiConstants;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPageFactory;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
@@ -51,11 +50,6 @@ public class TaskEditorPageFactory extends AbstractTaskEditorPageFactory {
 	@Override
 	public int getPriority() {
 		return PRIORITY_TASK;
-	}
-
-	@Override
-	public String[] getConflictingIds(TaskEditorInput input) {
-		return new String[] { ITasksUiConstants.ID_PAGE_PLANNING };
 	}
 
 }

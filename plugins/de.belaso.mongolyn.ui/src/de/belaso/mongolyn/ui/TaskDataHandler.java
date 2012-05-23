@@ -8,8 +8,10 @@
  */
 package de.belaso.mongolyn.ui;
 
+import java.util.Map;
 import java.util.Set;
 
+import org.bson.types.ObjectId;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.mylyn.tasks.core.ITaskMapping;
@@ -20,6 +22,11 @@ import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskAttributeMapper;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 
 /**
  * 
@@ -50,7 +57,28 @@ public class TaskDataHandler extends AbstractTaskDataHandler {
 	public RepositoryResponse postTaskData(TaskRepository repository,
 			TaskData taskData, Set<TaskAttribute> oldAttributes,
 			IProgressMonitor monitor) throws CoreException {
-		return new RepositoryResponse(ResponseKind.TASK_CREATED, "1");
+		DBCollection dbCollection = MongolynUtils.getDBCollection(repository);
+		BasicDBObjectBuilder bob = BasicDBObjectBuilder.start();
+		for (Map.Entry<String, TaskAttribute> entry : taskData.getRoot()
+				.getAttributes().entrySet()) {
+			String key = entry.getKey();
+			TaskAttribute attribute = entry.getValue();
+			String attributeValue = attribute.getValue();
+			if (attributeValue != null) {
+				bob.add(key.replace('.', '_'), attributeValue);
+			}
+		}
+		DBObject dbObject = bob.get();
+		if (taskData.isNew()) {
+			dbCollection.insert(dbObject);
+			return new RepositoryResponse(ResponseKind.TASK_CREATED, dbObject
+					.get("_id").toString());
+		} else {
+			dbCollection.findAndModify(new BasicDBObject("_id", new ObjectId(
+					taskData.getTaskId())), dbObject);
+			return new RepositoryResponse(ResponseKind.TASK_UPDATED,
+					taskData.getTaskId());
+		}
 	}
 
 	@Override

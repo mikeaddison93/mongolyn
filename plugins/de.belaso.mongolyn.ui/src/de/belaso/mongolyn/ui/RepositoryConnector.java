@@ -8,6 +8,7 @@
  */
 package de.belaso.mongolyn.ui;
 
+import org.bson.types.ObjectId;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -19,6 +20,9 @@ import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
 import org.eclipse.mylyn.tasks.core.sync.ISynchronizationSession;
+
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 
 /**
  * 
@@ -90,8 +94,22 @@ public class RepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public TaskData getTaskData(TaskRepository taskRepository, String taskId,
 			IProgressMonitor monitor) throws CoreException {
-		// TODO Auto-generated method stub
-		return null;
+		TaskData taskData = new TaskData(getTaskDataHandler()
+				.getAttributeMapper(taskRepository), KIND,
+				taskRepository.getRepositoryUrl(), taskId);
+		taskData.setPartial(false);
+		taskData.setVersion("1");
+		getTaskDataHandler().initializeTaskData(taskRepository, taskData, null,
+				monitor);
+		DBCollection dbCollection = MongolynUtils
+				.getDBCollection(taskRepository);
+		DBObject dbObject = dbCollection.findOne(new ObjectId(taskId));
+		for (String key : dbObject.keySet()) {
+			if (!"_id".equals(key))
+				taskData.getRoot().getAttribute(key.replace('_', '.'))
+						.setValue(dbObject.get(key).toString());
+		}
+		return taskData;
 	}
 
 	@Override

@@ -10,15 +10,12 @@ package de.belaso.mongolyn.ui;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
-import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.tasks.core.IRepositoryConstants;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.swt.widgets.Composite;
 
 import com.mongodb.DB;
-import com.mongodb.Mongo;
 import com.mongodb.MongoURI;
 
 /**
@@ -69,26 +66,14 @@ public class RepositorySettingsPage extends AbstractRepositorySettingsPage {
 						.beginTask(
 								Messages.RepositorySettingsPage_ValidateRepositorySettings,
 								1);
-				Mongo mongo = null;
+				DB db = null;
 				try {
-					MongoURI mongoURI = new MongoURI(
-							repository.getRepositoryUrl());
-					mongo = new Mongo(mongoURI);
-					DB db = mongo.getDB(mongoURI.getDatabase());
-					AuthenticationCredentials credentials = repository
-							.getCredentials(AuthenticationType.REPOSITORY);
-					if (credentials != null) {
-						db.authenticate(credentials.getUserName(), credentials
-								.getPassword().toCharArray());
-					}
+					db = MongolynUtils.openNewDB(repository);
 					db.getCollectionNames();
 					progressMonitor.worked(1);
-				} catch (Exception exception) {
-					throw new CoreException(
-							Activator.INSTANCE.handleException(exception));
 				} finally {
-					if (mongo != null)
-						mongo.close();
+					if (db != null)
+						db.getMongo().close();
 					progressMonitor.done();
 				}
 			}
