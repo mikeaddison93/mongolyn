@@ -69,53 +69,68 @@ public class RepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public String getRepositoryUrlFromTaskUrl(String taskFullUrl) {
-		// TODO Auto-generated method stub
+		if (taskFullUrl == null || taskFullUrl.length() == 0)
+			return null;
+		int lastSlash = taskFullUrl.lastIndexOf('/');
+		if (lastSlash != -1 && lastSlash + 1 < taskFullUrl.length())
+			return taskFullUrl.substring(0, lastSlash);
 		return null;
 	}
 
 	@Override
 	public String getTaskIdFromTaskUrl(String taskFullUrl) {
-		// TODO Auto-generated method stub
+		if (taskFullUrl == null || taskFullUrl.length() == 0)
+			return null;
+		int lastSlash = taskFullUrl.lastIndexOf('/');
+		if (lastSlash != -1 && lastSlash + 1 < taskFullUrl.length())
+			return taskFullUrl.substring(lastSlash + 1);
 		return null;
 	}
 
 	@Override
 	public String getTaskUrl(String repositoryUrl, String taskId) {
-		// TODO Auto-generated method stub
-		return null;
+		return repositoryUrl + "/" + taskId;
 	}
 
 	@Override
 	public boolean hasTaskChanged(TaskRepository taskRepository, ITask task,
 			TaskData taskData) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public TaskData getTaskData(TaskRepository taskRepository, String taskId,
 			IProgressMonitor monitor) throws CoreException {
-		TaskData taskData = new TaskData(getTaskDataHandler()
-				.getAttributeMapper(taskRepository), KIND,
-				taskRepository.getRepositoryUrl(), taskId);
-		taskData.setPartial(false);
-		taskData.setVersion("1");
-		getTaskDataHandler().initializeTaskData(taskRepository, taskData, null,
-				monitor);
 		DBCollection dbCollection = MongolynUtils
 				.getDBCollection(taskRepository);
 		DBObject dbObject = dbCollection.findOne(new ObjectId(taskId));
-		for (String key : dbObject.keySet()) {
-			if (!"_id".equals(key))
-				taskData.getRoot().getAttribute(key.replace('_', '.'))
-						.setValue(dbObject.get(key).toString());
+		if (dbObject != null) {
+			TaskData taskData = new TaskData(getTaskDataHandler()
+					.getAttributeMapper(taskRepository), KIND,
+					taskRepository.getRepositoryUrl(), taskId);
+			taskData.setPartial(false);
+			taskData.setVersion("1");
+			getTaskDataHandler().initializeTaskData(taskRepository, taskData,
+					null, monitor);
+			for (String key : dbObject.keySet()) {
+				if (!"_id".equals(key))
+					taskData.getRoot().getAttribute(key.replace('_', '.'))
+							.setValue(dbObject.get(key).toString());
+			}
+			return taskData;
+		} else {
+			throw new CoreException(
+					Activator.INSTANCE.getErrorStatus("MongoDB document "
+							+ taskId + " not found."));
 		}
-		return taskData;
 	}
 
 	@Override
 	public void updateTaskFromTaskData(TaskRepository taskRepository,
 			ITask task, TaskData taskData) {
+		if (!taskData.isNew())
+			task.setUrl(getTaskUrl(taskRepository.getUrl(),
+					taskData.getTaskId()));
 		new TaskMapper(taskData).applyTo(task);
 	}
 
@@ -130,7 +145,6 @@ public class RepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public void updateRepositoryConfiguration(TaskRepository taskRepository,
 			IProgressMonitor monitor) throws CoreException {
-		// TODO Auto-generated method stub
 	}
 
 }

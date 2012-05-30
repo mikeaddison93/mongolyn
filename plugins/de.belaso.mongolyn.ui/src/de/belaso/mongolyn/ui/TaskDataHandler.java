@@ -27,6 +27,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
+import com.mongodb.MongoException;
+import com.mongodb.WriteConcern;
 
 /**
  * 
@@ -69,15 +71,20 @@ public class TaskDataHandler extends AbstractTaskDataHandler {
 			}
 		}
 		DBObject dbObject = bob.get();
-		if (taskData.isNew()) {
-			dbCollection.insert(dbObject);
-			return new RepositoryResponse(ResponseKind.TASK_CREATED, dbObject
-					.get("_id").toString());
-		} else {
-			dbCollection.findAndModify(new BasicDBObject("_id", new ObjectId(
-					taskData.getTaskId())), dbObject);
-			return new RepositoryResponse(ResponseKind.TASK_UPDATED,
-					taskData.getTaskId());
+		try {
+			if (taskData.isNew()) {
+				dbCollection.insert(dbObject, WriteConcern.SAFE);
+				return new RepositoryResponse(ResponseKind.TASK_CREATED,
+						dbObject.get("_id").toString());
+			} else {
+				dbCollection.findAndModify(new BasicDBObject("_id",
+						new ObjectId(taskData.getTaskId())), dbObject);
+				return new RepositoryResponse(ResponseKind.TASK_UPDATED,
+						taskData.getTaskId());
+			}
+		} catch (MongoException mongoException) {
+			throw new CoreException(
+					Activator.INSTANCE.getErrorStatus(mongoException));
 		}
 	}
 

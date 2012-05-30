@@ -55,7 +55,7 @@ public class MongolynUtils {
 			return db;
 		} catch (UnknownHostException unknownHostException) {
 			throw new CoreException(
-					Activator.INSTANCE.handleException(unknownHostException));
+					Activator.INSTANCE.getErrorStatus(unknownHostException));
 		}
 	}
 

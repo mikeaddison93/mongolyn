@@ -37,7 +37,7 @@ public class Activator implements BundleActivator {
 		bundleContext = null;
 	}
 
-	protected IStatus handleException(Exception exception) {
+	protected IStatus getErrorStatus(Exception exception) {
 		IStatus status = new Status(IStatus.ERROR, bundleContext.getBundle()
 				.getSymbolicName(), exception.getClass().getName() + ": "
 				+ exception.getMessage(), exception);
@@ -45,4 +45,13 @@ public class Activator implements BundleActivator {
 		logger.log(status);
 		return status;
 	}
+
+	protected IStatus getErrorStatus(String message) {
+		IStatus status = new Status(IStatus.ERROR, bundleContext.getBundle()
+				.getSymbolicName(), message);
+		ILog logger = Platform.getLog(bundleContext.getBundle());
+		logger.log(status);
+		return status;
+	}
+
 }
