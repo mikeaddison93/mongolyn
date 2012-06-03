@@ -95,6 +95,7 @@ public class RepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public boolean hasTaskChanged(TaskRepository taskRepository, ITask task,
 			TaskData taskData) {
+		// TODO introduce modify date?
 		return false;
 	}
 

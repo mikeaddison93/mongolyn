@@ -15,6 +15,7 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.ITaskRepositoryPage;
 import org.eclipse.mylyn.tasks.ui.wizards.NewTaskWizard;
+import org.eclipse.mylyn.tasks.ui.wizards.RepositoryQueryWizard;
 
 /**
  * 
@@ -41,8 +42,9 @@ public class RepositoryConnectorUi extends AbstractRepositoryConnectorUi {
 	@Override
 	public IWizard getQueryWizard(TaskRepository taskRepository,
 			IRepositoryQuery queryToEdit) {
-		// TODO Auto-generated method stub
-		return null;
+		RepositoryQueryWizard wizard = new RepositoryQueryWizard(taskRepository);
+		wizard.addPage(new TaskQueryPage(taskRepository, queryToEdit));
+		return wizard;
 	}
 
 	@Override
