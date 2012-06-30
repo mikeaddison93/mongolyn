@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.belaso.mongolyn</groupId>
 		<artifactId>mongolyn-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0.qualifier</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 

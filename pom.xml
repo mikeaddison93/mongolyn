@@ -9,13 +9,13 @@
 
 	<groupId>de.belaso.mongolyn</groupId>
 	<artifactId>mongolyn-parent</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0.qualifier</version>
 	<packaging>pom</packaging>
 
 	<name>Mongolyn Parent</name>
 
 	<properties>
-		<tycho-version>0.13.0</tycho-version>
+		<tycho-version>0.15.0</tycho-version>
 		<platform-version-name>indigo</platform-version-name>
 		<eclipse-site>http://download.eclipse.org/eclipse/updates/3.7</eclipse-site>
 		<mylyn-site>http://download.eclipse.org/mylyn/releases/${platform-version-name}</mylyn-site>
@@ -40,7 +40,6 @@
 	</repositories>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
