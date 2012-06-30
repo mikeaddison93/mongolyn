@@ -22,7 +22,6 @@
 	</properties>
 
 	<modules>
-		<module>plugins/de.belaso.mongolyn.core</module>
 		<module>plugins/de.belaso.mongolyn.ui</module>
 	</modules>
 
@@ -36,6 +35,11 @@
 			<id>mylyn</id>
 			<layout>p2</layout>
 			<url>${mylyn-site}</url>
+		</repository>
+		<repository>
+			<id>mongo</id>
+			<layout>p2</layout>
+			<url>${project.baseUri}../../target-platform</url>
 		</repository>
 	</repositories>
 
@@ -53,6 +57,18 @@
 				<version>${tycho-version}</version>
 				<configuration>
 					<resolver>p2</resolver>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
 				</configuration>
 			</plugin>
 		</plugins>
