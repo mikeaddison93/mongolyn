@@ -9,9 +9,11 @@
             name="%de.belaso.mongolyn.ui.RepositoryConnector">
       </connectorCore>
       <connectorUi
+            brandingIcon="icons/logo-mongodb.png"
             class="de.belaso.mongolyn.ui.RepositoryConnectorUi"
             id="de.belaso.mongolyn.ui.RepositoryConnectorUi"
-            name="%de.belaso.mongolyn.ui.RepositoryConnectorUi">
+            name="%de.belaso.mongolyn.ui.RepositoryConnectorUi"
+            overlayIcon="icons/logo-mongodb-overlay.png">
       </connectorUi>
    </extension>
    <extension
