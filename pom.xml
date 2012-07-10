@@ -23,6 +23,7 @@
 
 	<modules>
 		<module>plugins/de.belaso.mongolyn.ui</module>
+		<module>features/de.belaso.mongolyn.feature</module>
 	</modules>
 
 	<repositories>

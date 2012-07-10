@@ -10,17 +10,8 @@
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>de.belaso.mongolyn.ui</artifactId>
-	<packaging>eclipse-plugin</packaging>
-	<name>Mongolyn UI</name>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-source-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+	<artifactId>de.belaso.mongolyn.feature</artifactId>
+	<packaging>eclipse-feature</packaging>
+	<name>Mongolyn Feature</name>
 
 </project>

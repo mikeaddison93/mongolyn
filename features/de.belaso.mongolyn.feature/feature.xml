@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="de.belaso.mongolyn.feature"
+      label="Mongolyn Feature"
+      version="1.0.0.qualifier"
+      provider-name="Christian Trutz">
+
+   <description url="https://github.com/belaso/mongolyn">
+      Mongolyn enables Mylyn to store tasks into MongoDB.
+   </description>
+
+   <copyright>
+      Copyright (C) 2011, Christian Trutz &lt;christian.trutz@belaso.de&gt;. All rights reserved.
+   </copyright>
+
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+      All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+   </license>
+
+   <url>
+      <update label="Mongolyn Update Site" url="http://mongolyn.github.com/updates"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.forms" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.mylyn.tasks.core" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.mylyn.tasks.ui" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.mylyn.commons.net" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.mongodb.mongo-java-driver" version="2.8.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="de.belaso.mongolyn.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
