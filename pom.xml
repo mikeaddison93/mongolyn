@@ -24,6 +24,7 @@
 	<modules>
 		<module>plugins/de.belaso.mongolyn.ui</module>
 		<module>features/de.belaso.mongolyn.feature</module>
+		<module>other/de.belaso.mongolyn.repository</module>
 	</modules>
 
 	<repositories>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.belaso.mongolyn</groupId>
+		<artifactId>mongolyn-parent</artifactId>
+		<version>1.0.0.qualifier</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>de.belaso.mongolyn.repository</artifactId>
+	<packaging>eclipse-repository</packaging>
+	<name>Mongolyn Repository</name>
+
+</project>
