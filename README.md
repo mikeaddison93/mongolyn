@@ -9,11 +9,11 @@ Use cases
 
 If you want to:
 
-- install Mongolyn, your Eclipse update site is http://www.belaso.de/updates.
+- install Mongolyn, your Eclipse update site is http://www.belaso.de/updates,
 - configure a new Mongolyn task repository, please read the [configuration instructions](https://github.com/belaso/mongolyn/wiki/Configuration).
 
 
 License
 -------
 
-_Mongolyn_ and the accompanying materials are made available under the terms of the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html).
+Mongolyn and the accompanying materials are made available under the terms of the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html).
