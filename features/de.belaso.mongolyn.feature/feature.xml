@@ -21,7 +21,7 @@ http://www.eclipse.org/legal/epl-v10.html
    </license>
 
    <url>
-      <update label="Mongolyn Update Site" url="http://mongolyn.github.com/updates"/>
+      <update label="Mongolyn Update Site" url="https://belaso.github.com/mongolyn/updates"/>
    </url>
 
    <requires>
