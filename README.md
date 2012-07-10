@@ -7,7 +7,10 @@ _Mongolyn_ enables [Mylyn](http://www.eclipse.org/mylyn/) to store tasks into [M
 Use cases
 -----------
 
-- If you want to configure a new Mongolyn task repository, please read the [configuration instructions](https://github.com/belaso/mongolyn/wiki/Configuration).
+If you want to:
+
+- install Mongolyn, your Eclipse update site is http://www.belaso.de/updates.
+- configure a new Mongolyn task repository, please read the [configuration instructions](https://github.com/belaso/mongolyn/wiki/Configuration).
 
 
 License
