@@ -1,7 +1,7 @@
 Mongolyn
 ========
 
-_Mongolyn_ enables [Mylyn](http://www.eclipse.org/mylyn/) to store tasks into [MongoDB](http://www.mongodb.org).
+Mongolyn enables [Mylyn](http://www.eclipse.org/mylyn/) to store tasks into [MongoDB](http://www.mongodb.org).
 
 
 Use cases
