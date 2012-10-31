@@ -31,7 +31,12 @@ public class MongolynUtils {
 
 	public static DBCollection getDBCollection(final TaskRepository repository)
 			throws CoreException {
-		return openDB(repository).getCollection("mongolyn");
+		MongoURI mongoURI = new MongoURI(repository.getRepositoryUrl());
+		String collection = mongoURI.getCollection();
+		if (collection == null || collection.isEmpty()) {
+			collection = "mongolyn"; // using hard coded collection
+		}
+		return openDB(repository).getCollection(collection);
 	}
 
 	public static DB openDB(final TaskRepository repository)
