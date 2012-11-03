@@ -16,7 +16,7 @@ If you want to:
 Mailing lists
 -------------
 
-- developers please register to mongolyn-dev@googlegroups.com mailing list via https://groups.google.com/forum/#!forum/mongolyn-dev. 
+- developers please register to mongolyn-dev@googlegroups.com mailing list via https://groups.google.com/forum/#!forum/mongolyn-dev 
 
 
 License
