@@ -13,6 +13,12 @@ If you want to:
 - configure a new Mongolyn task repository, please read the [configuration instructions](https://github.com/belaso/mongolyn/wiki/Configuration).
 
 
+Dogfooding
+----------
+
+Mongolyn is planned with Mongolyn. For Mongolyn dogfooding please readonly login to mongodb://alex.mongohq.com:10066/mongolyn.dogfooding with username _readonly_ and password _readonly_.
+
+
 Mailing lists
 -------------
 
