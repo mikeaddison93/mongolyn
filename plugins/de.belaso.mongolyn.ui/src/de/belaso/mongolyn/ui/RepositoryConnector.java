@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
@@ -23,6 +24,7 @@ import org.eclipse.mylyn.tasks.core.data.TaskMapper;
 import org.eclipse.mylyn.tasks.core.sync.ISynchronizationSession;
 
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 /**
@@ -136,11 +138,34 @@ public class RepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public IStatus performQuery(TaskRepository repository,
+	public IStatus performQuery(TaskRepository taskRepository,
 			IRepositoryQuery query, TaskDataCollector collector,
 			ISynchronizationSession session, IProgressMonitor monitor) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			DBCollection dbCollection = MongolynUtils
+					.getDBCollection(taskRepository);
+			DBCursor dbCursor = dbCollection.find();
+			while (dbCursor.hasNext()) {
+				DBObject dbObject = dbCursor.next();
+				TaskData taskData = new TaskData(getTaskDataHandler()
+						.getAttributeMapper(taskRepository), KIND,
+						taskRepository.getRepositoryUrl(), dbObject.get("_id")
+								.toString());
+				taskData.setPartial(false);
+				taskData.setVersion("1");
+				getTaskDataHandler().initializeTaskData(taskRepository,
+						taskData, null, monitor);
+				for (String key : dbObject.keySet()) {
+					if (!"_id".equals(key))
+						taskData.getRoot().getAttribute(key.replace('_', '.'))
+								.setValue(dbObject.get(key).toString());
+				}
+				collector.accept(taskData);
+			}
+		} catch (CoreException coreException) {
+			// nothing to do
+		}
+		return Status.OK_STATUS;
 	}
 
 	@Override
